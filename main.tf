@@ -14,5 +14,6 @@ resource "oci_core_vcn" "test_vcn" {
   #Optional
   cidr_blocks = var.vcn_cidr_block
   display_name = var.display_name
+  cidr_block = ""
 }
 
