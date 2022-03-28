@@ -45,5 +45,5 @@ module "poc_subnets" {
     vcn_id                = oci_core_vcn.poc_vcn[each.value.vcn_name].id
 
     #Optional
-    subnet_display_name   = each.value.display_name
+    subnet_display_name   = each.value.name
 }
