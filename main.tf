@@ -35,7 +35,7 @@ resource "oci_core_vcn" "poc_vcn" {
     display_name    = each.value.display_name
     cidr_block      = each.value.cidr
 }
-/*
+
 module "poc_subnets" {
   source = "./modules/subnet"
   for_each                = { for subnet in local.subnets : "${subnet.vcn_name}.${subnet.subnet_key}" => subnet }
@@ -46,4 +46,4 @@ module "poc_subnets" {
 
     #Optional
     subnet_display_name   = each.value.name
-}*/
+}
