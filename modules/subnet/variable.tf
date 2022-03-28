@@ -4,7 +4,7 @@ variable "subnet_cidr_block" {
 variable "compartment_id" {
   description = "compartment ID"
 }
-variable "test_vcn_id" {
+variable "vcn_id" {
   description = "the vcn ID"
 }
 variable "subnet_display_name" {

@@ -8,12 +8,42 @@ provider "oci" {
 }
 */
 
-resource "oci_core_vcn" "test_vcn" {
-  #Required
-  compartment_id = var.compartment_ocid
-  #Optional
-  cidr_blocks = var.vcn_cidr_block
-  display_name = var.display_name
-  cidr_block = ""
+
+locals {
+
+  subnets = flatten([
+  for k, v in var.vcns : [
+  for k1, v1 in v.subnets : {
+    vcn_name        = k
+    subnet_key      = k1
+    display_name    = v1.name
+    cidr            = v1.cidr
+    compartment_id  = v1.compartment_id != null ? v1.compartment_id : var.compartment_id
+  }
+  ]
+  ])
 }
 
+
+
+resource "oci_core_vcn" "poc_vcn" {
+  for_each      = var.vcns
+    #Required
+    compartment_id  = each.value.compartment_id
+
+    #Optional
+    display_name    = each.value.display_name
+    cidr_block      = each.value.cidr
+}
+
+module "poc_subnets" {
+  source = "./modules/subnet"
+  for_each                = { for subnet in local.subnets : "${subnet.vcn_name}.${subnet.subnet_key}" => subnet }
+    #Required
+    subnet_cidr_block     = each.value.cdir
+    compartment_id        = each.value.compartment_id
+    vcn_id                = oci_core_vcn.poc_vcn[each.value.vcn_name].id
+
+    #Optional
+    subnet_display_name   = each.value.display_name
+}
