@@ -13,6 +13,9 @@ variable "vcn_cidr_block" {
 */
 
 
+variable "compartment_id" {
+  description = "Compartment's OCID where VCN will be created."
+}
 
 variable "vcns" {
   description = "The VCNs."
