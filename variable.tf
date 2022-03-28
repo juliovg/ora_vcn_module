@@ -22,11 +22,11 @@ variable "vcns" {
   type = map(object({
     compartment_id    = string,
     cidr              = string,
-    display_name      = string/*,
+    display_name      = string,
     subnets = map(object({
       compartment_id    = string,
       name              = string,
       cdir              = string
-    }))*/
+    }))
   }))
 }

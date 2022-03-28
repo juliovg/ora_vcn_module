@@ -17,7 +17,7 @@ locals {
     vcn_name        = k
     subnet_key      = k1
     display_name    = v1.name
-    cidr            = v1.cidr
+    cidr            = v1.cdir
     compartment_id  = v1.compartment_id != null ? v1.compartment_id : var.compartment_id
   }
   ]
