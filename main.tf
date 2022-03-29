@@ -12,15 +12,15 @@ provider "oci" {
 locals {
 
   subnets = flatten([
-  for k, v in var.vcns : [
-  for k1, v1 in v.subnets : {
-    vcn_name        = k
-    subnet_key      = k1
-    display_name    = v1.name
-    cidr            = v1.cdir
-    compartment_id  = v1.compartment_id != null ? v1.compartment_id : var.compartment_id
-  }
-  ]
+    for k, v in var.vcns : [
+      for k1, v1 in v.subnets : {
+        vcn_name        = k
+        subnet_key      = k1
+        display_name    = v1.name
+        cidr            = v1.cidr
+        compartment_id  = v1.compartment_id != null ? v1.compartment_id : var.compartment_id
+      }
+    ]
   ])
 }
 
@@ -36,14 +36,11 @@ resource "oci_core_vcn" "poc_vcn" {
     cidr_block      = each.value.cidr
 }
 
-module "poc_subnets" {
-  source = "./modules/subnet"
-  for_each                = { for subnet in local.subnets : "${subnet.vcn_name}.${subnet.subnet_key}" => subnet }
-    #Required
-    subnet_cidr_block     = each.value.cdir
-    compartment_id        = each.value.compartment_id
-    vcn_id                = oci_core_vcn.poc_vcn[each.value.vcn_name].id
-
-    #Optional
-    subnet_display_name   = each.value.name
+### Subnets
+resource "oci_core_subnet" "these" {
+  for_each                   = { for subnet in local.subnets : "${subnet.vcn_name}.${subnet.subnet_key}" => subnet }
+    display_name             = each.value.display_name
+    vcn_id                   = oci_core_vcn.these[each.value.vcn_name].id
+    cidr_block               = each.value.cidr
+    compartment_id           = each.value.compartment_id
 }
