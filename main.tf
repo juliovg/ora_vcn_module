@@ -40,7 +40,7 @@ resource "oci_core_vcn" "poc_vcn" {
 resource "oci_core_subnet" "these" {
   for_each                   = { for subnet in local.subnets : "${subnet.vcn_name}.${subnet.subnet_key}" => subnet }
     display_name             = each.value.display_name
-    vcn_id                   = oci_core_vcn.these[each.value.vcn_name].id
+    vcn_id                   = oci_core_vcn.poc_vcn[each.value.vcn_name].id
     cidr_block               = each.value.cidr
     compartment_id           = each.value.compartment_id
 }
