@@ -26,7 +26,7 @@ variable "vcns" {
     subnets = map(object({
       compartment_id    = string,
       name              = string,
-      cdir              = string
+      cidr              = string
     }))
   }))
 }
