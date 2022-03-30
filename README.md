@@ -10,11 +10,11 @@ Here we will find the values that must me required and optional to use this modu
 Those are the attributes to set on VCN modules
 
 <!--START-->
-| Attributes           | Description | Type             |
-| :-----------------   | :---------- | :--------------- |
-| compartment_id       | Compartment for this subnet    | String           |
-| cidr_blocks          | IP Range of the CIDR block    | String           |
-| display_name         | User-friendly name    | String           |
+| Attributes           | Description | Type             | Required             |
+| :-----------------   | :---------- | :--------------- | :--------------- |
+| compartment_id       | Compartment for this subnet    | String           | Mandatory           |
+| cidr_blocks          | IP Range of the CIDR block    | String           | Optional           |
+| display_name         | User-friendly name    | String           | Optional           |
 <!--END-->
 
 With those information will be enogth to use the module
@@ -23,14 +23,12 @@ With those information will be enogth to use the module
 ### SUBNET - Module Attributes
 Those are the attributes to set on VCN modules
 
-Those are the attributes to set on VCN modules
-
 <!--START-->
-| Attributes           | Description | Type             |
-| :-----------------   | :---------- | :--------------- |
-| compartment_id       | Compartment for this subnet    | String           |
-| cidr                 | IP Range of the CIDR block    | String           |
-| name                 | User-friendly name    | String           |
+| Attributes           | Description | Type             | Required             |
+| :-----------------   | :---------- | :--------------- | :--------------- |
+| compartment_id       | Compartment for this subnet    | String           | Mandatory           |
+| cidr                 | IP Range of the CIDR block    | String           | Mandatory           |
+| name                 | User-friendly name    | String           | Optional           |
 <!--END-->
 
 ## Inputs
